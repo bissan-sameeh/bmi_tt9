@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../Modal/person.dart';
 import '../widgets/containerInfo.dart';
 import '../widgets/expended_container.dart';
+import '../widgets/navigetor_bar.dart';
 
 class InputPage extends StatefulWidget {
   const InputPage({super.key});
@@ -14,7 +15,10 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Person person = Person(height: 150, weight: 50, age: 20, isMale: false);
+  Person person = Person(height: 70, weight: 50, age: 20, isMale: false);
+  getInitData() {
+    person = Person(height: 70, weight: 50, age: 20, isMale: false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,8 +92,9 @@ class _InputPageState extends State<InputPage> {
             const SizedBox(
               height: 12,
             ),
-            InkWell(
-              onTap: () {
+            NavigetorBar(
+              text: "Calculate",
+              function: () {
                 setState(() {});
                 Navigator.push(
                     context,
@@ -100,22 +105,13 @@ class _InputPageState extends State<InputPage> {
                         weightResult: calcResult(),
                         advise: showAdvise(),
                       ),
-                    ));
+                    )).then((value) {
+                  setState(() {
+                    getInitData();
+                  });
+                });
               },
-              child: Container(
-                height: 80,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.pinkAccent,
-                ),
-                child: const Center(
-                  child: Text(
-                    "Calculate",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                  ),
-                ),
-              ),
-            )
+            ),
           ],
         ));
   }
@@ -127,6 +123,7 @@ class _InputPageState extends State<InputPage> {
   String calcBmi() {
     person.height = person.height / 100.0;
     result = person.weight / (person.height * person.height);
+    person.height = person.height * 100.0;
     return result.toStringAsFixed(2);
   }
 
