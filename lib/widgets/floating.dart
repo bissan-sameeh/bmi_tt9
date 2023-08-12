@@ -17,8 +17,10 @@ class _floatingState extends State<floating> {
     return FloatingActionButton(
         backgroundColor: Colors.pinkAccent,
         onPressed: widget.function,
-        child: Icon(
-          widget.icon,
+        child: Center(
+          child: Icon(
+            widget.icon,
+          ),
         ));
   }
 }

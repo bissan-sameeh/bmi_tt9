@@ -9,11 +9,14 @@ class ContainerInfo extends StatefulWidget {
   final double sizeFontFirstText;
   final bool? isCenterWidget;
   final double sizeFontSecText;
+  double sliderValue;
+
   final Function(dynamic newValue) onChangedValue;
 
   ContainerInfo(
       {Key? key,
       required this.text,
+      required this.sliderValue,
       required this.secText,
       required this.sizeFontFirstText,
       this.isCenterWidget = false,
@@ -26,7 +29,6 @@ class ContainerInfo extends StatefulWidget {
 }
 
 class _ContainerInfoState extends State<ContainerInfo> {
-  var _sliderValue = 20.0;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -81,7 +83,7 @@ class _ContainerInfoState extends State<ContainerInfo> {
                           },
                         ),
                         floating(
-                          icon: Icons.minimize,
+                          icon: Icons.remove,
                           function: () {
                             setState(() {
                               (widget.secText = --widget.secText);
@@ -94,14 +96,14 @@ class _ContainerInfoState extends State<ContainerInfo> {
                     )
                   : Slider(
                       min: 0,
-                      max: 200,
-                      value: _sliderValue,
+                      max: 250,
+                      value: widget.sliderValue,
                       activeColor: Colors.pinkAccent,
                       onChanged: (value) {
                         setState(() {
-                          _sliderValue = value;
+                          widget.sliderValue = value;
                           widget.secText =
-                              _sliderValue.toDouble(); // Convert to int
+                              widget.sliderValue.toDouble(); // Convert to int
                           widget.onChangedValue(widget.secText);
                         });
                       }),

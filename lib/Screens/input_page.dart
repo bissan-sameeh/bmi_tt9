@@ -16,6 +16,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Person person = Person(height: 70, weight: 50, age: 20, isMale: false);
+
   getInitData() {
     person = Person(height: 70, weight: 50, age: 20, isMale: false);
   }
@@ -64,19 +65,23 @@ class _InputPageState extends State<InputPage> {
               onChangedValue: (heightValue) {
                 person.height = heightValue;
               },
+              sliderValue: person.height,
             ),
             Row(
               children: [
                 ContainerInfo(
-                    text: 'Weight',
-                    sizeFontFirstText: 16,
-                    sizeFontSecText: 40,
-                    onChangedValue: (newWeight) {
-                      person.weight = newWeight;
-                    },
-                    secText: person.weight),
+                  text: 'Weight',
+                  sizeFontFirstText: 16,
+                  sizeFontSecText: 40,
+                  onChangedValue: (newWeight) {
+                    person.weight = newWeight;
+                  },
+                  secText: person.weight,
+                  sliderValue: person.height,
+                ),
                 ContainerInfo(
                   text: 'Age',
+                  sliderValue: person.height,
                   sizeFontFirstText: 16,
                   sizeFontSecText: 40,
                   secText: person.age,
@@ -95,7 +100,6 @@ class _InputPageState extends State<InputPage> {
             NavigetorBar(
               text: "Calculate",
               function: () {
-                setState(() {});
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -121,9 +125,8 @@ class _InputPageState extends State<InputPage> {
   late String advise;
 
   String calcBmi() {
-    person.height = person.height / 100.0;
-    result = person.weight / (person.height * person.height);
-    person.height = person.height * 100.0;
+    double heightInMeters = person.height / 100.0; // Convert height to meters
+    result = person.weight / (heightInMeters * heightInMeters);
     return result.toStringAsFixed(2);
   }
 
