@@ -30,6 +30,12 @@ class ContainerInfo extends StatefulWidget {
 
 class _ContainerInfoState extends State<ContainerInfo> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
@@ -104,9 +110,8 @@ class _ContainerInfoState extends State<ContainerInfo> {
                       onChanged: (value) {
                         setState(() {
                           widget.sliderValue = value;
-                          widget.secText = widget.text == "Age"
-                              ? widget.sliderValue.toDouble()
-                              : widget.sliderValue.toInt(); // Convert to int
+                          widget.secText =
+                              widget.sliderValue.toDouble(); // Convert to int
                           widget.onChangedValue(widget.secText);
                         });
                       }),
