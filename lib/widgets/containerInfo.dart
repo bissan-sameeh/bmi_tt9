@@ -56,7 +56,9 @@ class _ContainerInfoState extends State<ContainerInfo> {
                 textBaseline: TextBaseline.alphabetic,
                 children: [
                   Text(
-                    " ${widget.secText.toStringAsFixed(2)}",
+                    widget.text == "Age"
+                        ? " ${widget.secText.toStringAsFixed(0)} "
+                        : "${widget.secText.toStringAsFixed(2)}",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: widget.sizeFontSecText),
@@ -102,8 +104,9 @@ class _ContainerInfoState extends State<ContainerInfo> {
                       onChanged: (value) {
                         setState(() {
                           widget.sliderValue = value;
-                          widget.secText =
-                              widget.sliderValue.toDouble(); // Convert to int
+                          widget.secText = widget.text == "Age"
+                              ? widget.sliderValue.toDouble()
+                              : widget.sliderValue.toInt(); // Convert to int
                           widget.onChangedValue(widget.secText);
                         });
                       }),
